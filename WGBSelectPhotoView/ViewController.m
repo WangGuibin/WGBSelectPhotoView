@@ -1,0 +1,91 @@
+//
+//  ViewController.m
+//  WGBSelectPhotoView
+//
+//  Created by mac on 2019/10/14.
+//  Copyright © 2019 mac. All rights reserved.
+//
+
+#import "ViewController.h"
+#import "WGBSelectPhotoView.h"
+#import <TZImagePickerController/TZImagePickerController.h>
+#import <YBImageBrowser.h>
+
+@interface ViewController ()<WGBSelectPhotoViewDelegate>
+
+@property (nonatomic, strong) WGBSelectPhotoView *selectPhotoView;
+@property (nonatomic, strong) NSMutableArray *selectImageArray;
+
+
+@end
+
+@implementation ViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.title = @"照片选择";
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview: self.selectPhotoView];
+
+}
+
+- (void)selectPhoto{
+    TZImagePickerController *pickerVC = [[TZImagePickerController alloc] init];
+    pickerVC.maxImagesCount = 9;
+    [self presentViewController:pickerVC animated:YES completion:^{
+        
+    }];
+    
+    [pickerVC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
+        [self.selectImageArray addObjectsFromArray:assets];
+        [self.selectPhotoView addPhotoesWithImages: photos];
+    }];
+}
+
+#pragma mark - <WGBSelectPhotoViewDelegate>
+- (void)wgb_photoViewDidClickedPhotoAtIndex:(NSInteger)index{
+    if (index == [self.selectPhotoView picturesCount]) {
+        [self selectPhoto];
+    }else {
+        //        NSLog(@"%ld",index);
+        NSMutableArray *localImageDataArr = [NSMutableArray array];
+        for (PHAsset *imageAsset in self.selectImageArray) {
+            YBIBImageData *imageData = [YBIBImageData new];
+            imageData.imagePHAsset = imageAsset;
+            [localImageDataArr addObject:imageData];
+        }
+        YBImageBrowser *browser = [YBImageBrowser new];
+        browser.defaultToolViewHandler.topView.operationButton.hidden = YES;
+        browser.dataSourceArray = localImageDataArr;
+        browser.currentPage = index;
+        [browser show];
+    }
+}
+
+//删除图片事件回调
+- (void)wgb_photoViewDidDeletedPhotoAtIndex:(NSInteger)index{
+    if (self.selectImageArray.count) {
+        [self.selectImageArray removeObjectAtIndex: index];
+    }
+}
+
+
+- (WGBSelectPhotoView *)selectPhotoView {
+    if (!_selectPhotoView) {
+        _selectPhotoView = [[WGBSelectPhotoView alloc] initWithFrame:CGRectMake(0, 88, self.view.bounds.size.width, 100)];
+        _selectPhotoView.backgroundColor = [UIColor cyanColor];
+        _selectPhotoView.delegate = self;
+    }
+    return _selectPhotoView;
+}
+
+
+- (NSMutableArray *)selectImageArray {
+    if (!_selectImageArray) {
+        _selectImageArray = [[NSMutableArray alloc] init];
+    }
+    return _selectImageArray;
+}
+
+
+@end
