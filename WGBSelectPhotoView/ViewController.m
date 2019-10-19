@@ -31,7 +31,7 @@
 
 - (void)selectPhoto{
     TZImagePickerController *pickerVC = [[TZImagePickerController alloc] init];
-    pickerVC.maxImagesCount = 9;
+    pickerVC.maxImagesCount = 5;
     [self presentViewController:pickerVC animated:YES completion:^{
         
     }];
