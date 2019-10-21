@@ -10,6 +10,7 @@
 #import "WGBSelectPhotoView.h"
 #import <TZImagePickerController/TZImagePickerController.h>
 #import <YBImageBrowser.h>
+#define kMaxSelectImagesCount 9
 
 @interface ViewController ()<WGBSelectPhotoViewDelegate>
 
@@ -31,13 +32,32 @@
 
 - (void)selectPhoto{
     TZImagePickerController *pickerVC = [[TZImagePickerController alloc] init];
-    pickerVC.maxImagesCount = 5;
+    pickerVC.maxImagesCount = kMaxSelectImagesCount;
     [self presentViewController:pickerVC animated:YES completion:^{
         
     }];
     
     [pickerVC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
-        [self.selectImageArray addObjectsFromArray:assets];
+        if (self.selectImageArray.count + assets.count > kMaxSelectImagesCount) {
+            NSString *message = [NSString stringWithFormat:@"最多只能选择%ld张照片",(long)kMaxSelectImagesCount];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:(UIAlertControllerStyleAlert)];
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"知道了" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            [alert addAction: action];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+        ///MARK：- 优雅的方式 只获取`kMaxSelectImagesCount`张
+        if (self.selectImageArray.count) {
+            NSInteger detaCount = kMaxSelectImagesCount - self.selectImageArray.count;
+            NSIndexSet *indexes = [NSIndexSet indexSetWithIndexesInRange:
+                                   NSMakeRange(0,detaCount)];
+            NSArray *tempAssets = [assets objectsAtIndexes:indexes];
+            [self.selectImageArray addObjectsFromArray:tempAssets];
+        }else{
+            [self.selectImageArray addObjectsFromArray:assets];
+        }
+        
         [self.selectPhotoView addPhotoesWithImages: photos];
     }];
 }
