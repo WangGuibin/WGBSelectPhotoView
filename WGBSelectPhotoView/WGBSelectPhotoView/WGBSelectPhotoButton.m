@@ -8,10 +8,10 @@
 
 #import "WGBSelectPhotoButton.h"
 
-
 @interface WGBSelectPhotoButton()
 
 @property (nonatomic, strong) UIButton *deleteBtn;
+@property (nonatomic, strong) UIImageView *videoImageView;
 
 @end
 
@@ -28,6 +28,7 @@
         self.deleteBtn.frame = deleteRect;
         
         self.isAddButton = YES;
+        
         self.contentVerticalAlignment   = UIControlContentVerticalAlignmentFill;
         self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
         
@@ -40,6 +41,11 @@
         [self addTarget:self
                  action:@selector(didClickedPictureBtn)
        forControlEvents:UIControlEventTouchUpInside];
+    
+        [self addSubview: self.videoImageView];
+        [self bringSubviewToFront:self.videoImageView];
+        self.videoImageView.center = CGPointMake(frame.size.width/2.0, frame.size.height/2.0);
+    
     }
     return self;
 }
@@ -57,6 +63,12 @@
 - (void)setIsAddButton:(BOOL)isAddButton{
     _isAddButton = isAddButton;
     self.deleteBtn.hidden = isAddButton;
+    self.videoImageView.hidden = isAddButton;
+}
+
+- (void)setIsVideoButton:(BOOL)isVideoButton{
+    _isVideoButton = isVideoButton;
+    self.videoImageView.hidden = !isVideoButton;
 }
 
 - (UIButton *)deleteBtn {
@@ -73,6 +85,18 @@
              forControlEvents:UIControlEventTouchUpInside];
     }
     return _deleteBtn;
+}
+
+- (UIImageView *)videoImageView {
+    if (!_videoImageView) {
+        _videoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 24 , 24)];
+        NSString* path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"WGBSelectPhotoView.bundle"];
+        NSBundle *bundle = [NSBundle bundleWithPath:path];
+        UIImage *videoMarkImg = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"wgb_video_icon" ofType:@"png"]];
+        _videoImageView.image = videoMarkImg;
+        _videoImageView.clipsToBounds = YES;
+    }
+    return _videoImageView;
 }
 
 @end

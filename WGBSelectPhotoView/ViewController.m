@@ -10,13 +10,14 @@
 #import "WGBSelectPhotoView.h"
 #import <TZImagePickerController/TZImagePickerController.h>
 #import <YBImageBrowser.h>
+#import <YBIBVideoData.h>
+
 #define kMaxSelectImagesCount 9
 
 @interface ViewController ()<WGBSelectPhotoViewDelegate>
 
 @property (nonatomic, strong) WGBSelectPhotoView *selectPhotoView;
 @property (nonatomic, strong) NSMutableArray *selectImageArray;
-
 
 @end
 
@@ -32,20 +33,27 @@
 
 - (void)selectPhoto{
     TZImagePickerController *pickerVC = [[TZImagePickerController alloc] init];
+    pickerVC.allowPickingVideo = YES;
+    pickerVC.allowPickingMultipleVideo = NO;//(限制只能一个一个选 )
     pickerVC.maxImagesCount = kMaxSelectImagesCount;
     [self presentViewController:pickerVC animated:YES completion:^{
         
     }];
     
+    //选视频(只能一个一个选)
+    [pickerVC setDidFinishPickingVideoHandle:^(UIImage *coverImage, PHAsset *asset) {
+        if (self.selectImageArray.count >= kMaxSelectImagesCount) {
+             [self outOfLimitAlertTips];
+            return ;
+        }
+        [self.selectImageArray addObject: asset];
+        [self.selectPhotoView addVideoWithCoverImage: coverImage];
+    }];
+    
+    //选图片
     [pickerVC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
         if (self.selectImageArray.count + assets.count > kMaxSelectImagesCount) {
-            NSString *message = [NSString stringWithFormat:@"最多只能选择%ld张照片",(long)kMaxSelectImagesCount];
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:(UIAlertControllerStyleAlert)];
-            UIAlertAction *action = [UIAlertAction actionWithTitle:@"知道了" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
-                
-            }];
-            [alert addAction: action];
-            [self presentViewController:alert animated:YES completion:nil];
+            [self outOfLimitAlertTips];
         }
         ///MARK：- 优雅的方式 只获取`kMaxSelectImagesCount`张
         if (self.selectImageArray.count) {
@@ -63,17 +71,33 @@
     }];
 }
 
+///MARK:- 超出限制提示信息
+- (void)outOfLimitAlertTips{
+    NSString *message = [NSString stringWithFormat:@"最多只能选择%ld个媒体资源",(long)kMaxSelectImagesCount];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:(UIAlertControllerStyleAlert)];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"知道了" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alert addAction: action];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 #pragma mark - <WGBSelectPhotoViewDelegate>
 - (void)wgb_photoViewDidClickedPhotoAtIndex:(NSInteger)index{
     if (index == [self.selectPhotoView picturesCount]) {
         [self selectPhoto];
     }else {
-        //        NSLog(@"%ld",index);
         NSMutableArray *localImageDataArr = [NSMutableArray array];
         for (PHAsset *imageAsset in self.selectImageArray) {
-            YBIBImageData *imageData = [YBIBImageData new];
-            imageData.imagePHAsset = imageAsset;
-            [localImageDataArr addObject:imageData];
+            if (imageAsset.mediaType == PHAssetMediaTypeVideo) {
+                YBIBVideoData *videoData = [YBIBVideoData new];
+                videoData.videoPHAsset = imageAsset;
+                [localImageDataArr addObject:videoData];
+            }else{
+                YBIBImageData *imageData = [YBIBImageData new];
+                imageData.imagePHAsset = imageAsset;
+                [localImageDataArr addObject:imageData];
+            }
         }
         YBImageBrowser *browser = [YBImageBrowser new];
         browser.defaultToolViewHandler.topView.operationButton.hidden = YES;

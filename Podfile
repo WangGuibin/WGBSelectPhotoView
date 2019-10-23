@@ -8,5 +8,6 @@ target 'WGBSelectPhotoView' do
   # Pods for WGBSelectPhotoView
   pod 'TZImagePickerController'
   pod 'YBImageBrowser'
+  pod 'YBImageBrowser/Video'
 
 end

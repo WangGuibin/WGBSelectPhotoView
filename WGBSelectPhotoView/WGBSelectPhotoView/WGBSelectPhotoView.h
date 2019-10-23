@@ -36,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSUInteger)picturesCount;
 - (NSUInteger)pictureButtonsCount;
 
+///MARK:- 添加视频
+- (void)addVideoWithCoverImage:(UIImage *)image;
 ///MARK:- 添加图片数组
 - (void)addPhotoesWithImages:(NSArray *)images;
 ///MARK:- 添加单张图片 (一张一张添加很烦的 除非需求就是这样)

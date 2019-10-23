@@ -52,14 +52,24 @@
     if (self.pictureBtnArr.count == self.maxCount && ![self.pictureBtnArr.lastObject isAddButton]){
         return;
     }
-    
     for (UIImage *img in images) {
         [self addPictureWithImage: img];
     }
 }
 
+///MARK:- 添加视频 [目前限定只能一个一个添加视频]
+- (void)addVideoWithCoverImage:(UIImage *)image{
+    [self addMediaCoverImageViewWithImage:image isVideoCoverImage:YES];
+}
+
 //添加图片
 - (void)addPictureWithImage:(UIImage *)image {
+    [self addMediaCoverImageViewWithImage:image isVideoCoverImage:NO];
+}
+
+//添加资源封面图片展示
+- (void)addMediaCoverImageViewWithImage:(UIImage *)image
+                 isVideoCoverImage:(BOOL)isVideo{
     if (self.pictureBtnArr.count == self.maxCount && ![self.pictureBtnArr.lastObject isAddButton]){
         return;
     }
@@ -67,13 +77,13 @@
     WGBSelectPhotoButton *btn = (WGBSelectPhotoButton *)self.pictureBtnArr.lastObject;
     [btn setBackgroundImage:image forState:UIControlStateNormal];
     btn.isAddButton = NO;
-    
+    btn.isVideoButton = isVideo;
     if ([self picturesCount] == self.maxCount) {
         return;
     }
-    
     [self addAddPictureButton];
 }
+
 
 //添加 添加图片的按钮
 - (void)addAddPictureButton {
@@ -84,6 +94,7 @@
     viewRect.size.height = CGRectGetMaxY(addBtn.frame) + 10;
     self.frame = viewRect;
     !self.updateHeightBlock? : self.updateHeightBlock(viewRect.size.height);
+
 
     __weak typeof(self) weakSelf = self;
     __weak typeof(addBtn) weakBtn = addBtn;

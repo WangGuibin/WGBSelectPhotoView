@@ -8,6 +8,8 @@ PODS:
   - YBImageBrowser/Core (3.0.4):
     - SDWebImage (>= 5.0.0)
     - YYImage
+  - YBImageBrowser/Video (3.0.4):
+    - YBImageBrowser/Core
   - YYImage (1.0.4):
     - YYImage/Core (= 1.0.4)
   - YYImage/Core (1.0.4)
@@ -15,6 +17,7 @@ PODS:
 DEPENDENCIES:
   - TZImagePickerController
   - YBImageBrowser
+  - YBImageBrowser/Video
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -29,6 +32,6 @@ SPEC CHECKSUMS:
   YBImageBrowser: c02f42bbc89955f5a88ddb57e0b94ff9fdbee461
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
 
-PODFILE CHECKSUM: db783d0dc5a97343635954e6e08604c185a9ab6d
+PODFILE CHECKSUM: 946289fe651c59db3b90134ccfe783e38530e782
 
 COCOAPODS: 1.7.5
