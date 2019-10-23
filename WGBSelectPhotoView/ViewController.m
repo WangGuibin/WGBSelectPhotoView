@@ -94,8 +94,11 @@
 - (WGBSelectPhotoView *)selectPhotoView {
     if (!_selectPhotoView) {
         _selectPhotoView = [[WGBSelectPhotoView alloc] initWithFrame:CGRectMake(0, 88, self.view.bounds.size.width, 100)];
+        _selectPhotoView.maxCount = kMaxSelectImagesCount;
+        _selectPhotoView.rowCount = 3;
         _selectPhotoView.backgroundColor = [UIColor cyanColor];
         _selectPhotoView.delegate = self;
+        [_selectPhotoView showAddButtonDisplay];
     }
     return _selectPhotoView;
 }
