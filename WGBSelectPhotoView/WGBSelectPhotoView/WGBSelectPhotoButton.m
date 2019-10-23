@@ -31,10 +31,8 @@
         
         self.contentVerticalAlignment   = UIControlContentVerticalAlignmentFill;
         self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
-        
-        NSString* path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"WGBSelectPhotoView.bundle"];
-        NSBundle *bundle = [NSBundle bundleWithPath:path];
 
+        NSBundle *bundle = [self getWGBSelectPhotoViewBundle];
         UIImage *addImg = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"wgb_add" ofType:@"png"]];
         [self setBackgroundImage: addImg forState:UIControlStateNormal];
         
@@ -71,13 +69,20 @@
     self.videoImageView.hidden = !isVideoButton;
 }
 
+///MARK:- 获取自定义Bundle
+- (NSBundle *)getWGBSelectPhotoViewBundle{
+    NSString* path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"WGBSelectPhotoView.bundle"];
+    NSBundle *bundle = [NSBundle bundleWithPath:path];
+    return bundle;
+}
+
+///MARK:- Lazy load
 - (UIButton *)deleteBtn {
     if (!_deleteBtn) {
         _deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _deleteBtn.frame = CGRectMake(0, 0, 25, 25);
-        NSString* path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"WGBSelectPhotoView.bundle"];
-        NSBundle *bundle = [NSBundle bundleWithPath:path];
+        NSBundle *bundle = [self getWGBSelectPhotoViewBundle];
         UIImage *deleteImg = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"wgb_delete" ofType:@"png"]];
         [_deleteBtn setBackgroundImage: deleteImg forState:UIControlStateNormal];
         [_deleteBtn addTarget:self
@@ -90,13 +95,13 @@
 - (UIImageView *)videoImageView {
     if (!_videoImageView) {
         _videoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 24 , 24)];
-        NSString* path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"WGBSelectPhotoView.bundle"];
-        NSBundle *bundle = [NSBundle bundleWithPath:path];
+        NSBundle *bundle = [self getWGBSelectPhotoViewBundle];
         UIImage *videoMarkImg = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"wgb_video_icon" ofType:@"png"]];
         _videoImageView.image = videoMarkImg;
         _videoImageView.clipsToBounds = YES;
     }
     return _videoImageView;
 }
+
 
 @end

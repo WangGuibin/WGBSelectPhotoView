@@ -19,7 +19,6 @@
 @property (nonatomic,assign) NSInteger endIndex;//移动结束下标
 @property (nonatomic, assign) NSInteger selectedIndex;
 
-
 @end
 
 @implementation WGBSelectPhotoView
@@ -43,7 +42,7 @@
     _rowCount = rowCount;
 }
 
-///MARK:- 显式调用 显示加号按钮  调用时机是初始化完之后 或者 重新设置`maxCount`和`rowCount`之后
+///MARK:- 显式调用 显示加号按钮  调用时机是初始化完之后 或者 初始化完重新设置`maxCount`和`rowCount`之后 选择第一张图片之前
 - (void)showAddButtonDisplay{
     //加号按钮先行
     [self addAddPictureButton];
