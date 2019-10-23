@@ -47,24 +47,15 @@
     [self addAddPictureButton];
 }
 
-///MARK:- 添加图片数组
-- (void)addPhotoesWithImages:(NSArray *)images{
+///MARK:- 添加`PHAsset`资源数组
+- (void)addPhotoesWithAssets:(NSArray<PHAsset *> *)mediaAssets{
     if (self.pictureBtnArr.count == self.maxCount && ![self.pictureBtnArr.lastObject isAddButton]){
         return;
     }
-    for (UIImage *img in images) {
-        [self addPictureWithImage: img];
+    for (PHAsset *asset in mediaAssets) {
+        UIImage *img = [self convertImageWithPHAsset: asset];
+        [self addMediaCoverImageViewWithImage:img isVideoCoverImage: asset.mediaType == PHAssetMediaTypeVideo];
     }
-}
-
-///MARK:- 添加视频 [目前限定只能一个一个添加视频]
-- (void)addVideoWithCoverImage:(UIImage *)image{
-    [self addMediaCoverImageViewWithImage:image isVideoCoverImage:YES];
-}
-
-//添加图片
-- (void)addPictureWithImage:(UIImage *)image {
-    [self addMediaCoverImageViewWithImage:image isVideoCoverImage:NO];
 }
 
 //添加资源封面图片展示
@@ -269,6 +260,21 @@
     [self layoutViewAtIndex:self.selectedIndex];
     WGBSelectPhotoButton *btn = self.pictureBtnArr[self.selectedIndex];
     btn.alpha = 1;
+}
+
+
+///MARK: - 将PHAsset对象转为UIImage对象
+- (UIImage *)convertImageWithPHAsset:(PHAsset *)assets{
+    __block UIImage *image = [UIImage new];
+    PHImageManager *imageManager = [PHImageManager defaultManager];
+    PHImageRequestOptions *opt = [[PHImageRequestOptions alloc] init];
+    opt.synchronous = YES;
+    opt.resizeMode = PHImageRequestOptionsResizeModeNone;
+    opt.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+    [imageManager requestImageForAsset:assets targetSize:PHImageManagerMaximumSize contentMode:(PHImageContentModeAspectFill) options:opt resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+        image = result;
+    }];
+    return image;
 }
 
 #pragma mark - getters & setters

@@ -23,6 +23,7 @@
 
 @implementation ViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"照片选择";
@@ -34,23 +35,13 @@
 - (void)selectPhoto{
     TZImagePickerController *pickerVC = [[TZImagePickerController alloc] init];
     pickerVC.allowPickingVideo = YES;
-    pickerVC.allowPickingMultipleVideo = NO;//(限制只能一个一个选 )
+    pickerVC.allowPickingMultipleVideo = YES;//多选
     pickerVC.maxImagesCount = kMaxSelectImagesCount;
     [self presentViewController:pickerVC animated:YES completion:^{
         
     }];
-    
-    //选视频(只能一个一个选)
-    [pickerVC setDidFinishPickingVideoHandle:^(UIImage *coverImage, PHAsset *asset) {
-        if (self.selectImageArray.count >= kMaxSelectImagesCount) {
-             [self outOfLimitAlertTips];
-            return ;
-        }
-        [self.selectImageArray addObject: asset];
-        [self.selectPhotoView addVideoWithCoverImage: coverImage];
-    }];
-    
-    //选图片
+
+    //选图片或者视频
     [pickerVC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
         if (self.selectImageArray.count + assets.count > kMaxSelectImagesCount) {
             [self outOfLimitAlertTips];
@@ -63,11 +54,11 @@
                                    NSMakeRange(0,detaCount)];
             NSArray *tempAssets = [assets objectsAtIndexes:indexes];
             [self.selectImageArray addObjectsFromArray:tempAssets];
+            [self.selectPhotoView addPhotoesWithAssets:tempAssets];
         }else{
             [self.selectImageArray addObjectsFromArray:assets];
+            [self.selectPhotoView addPhotoesWithAssets:assets];
         }
-        
-        [self.selectPhotoView addPhotoesWithImages: photos];
     }];
 }
 
@@ -93,7 +84,7 @@
                 YBIBVideoData *videoData = [YBIBVideoData new];
                 videoData.videoPHAsset = imageAsset;
                 [localImageDataArr addObject:videoData];
-            }else{
+            }else {
                 YBIBImageData *imageData = [YBIBImageData new];
                 imageData.imagePHAsset = imageAsset;
                 [localImageDataArr addObject:imageData];
