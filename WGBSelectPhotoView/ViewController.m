@@ -14,10 +14,11 @@
 
 #define kMaxSelectImagesCount 9
 
-@interface ViewController ()<WGBSelectPhotoViewDelegate>
+@interface ViewController ()<UITableViewDelegate, UITableViewDataSource, WGBSelectPhotoViewDelegate>
 
 @property (nonatomic, strong) WGBSelectPhotoView *selectPhotoView;
 @property (nonatomic, strong) NSMutableArray *selectImageArray;
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
@@ -28,8 +29,18 @@
     [super viewDidLoad];
     self.navigationItem.title = @"照片选择";
     self.view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview: self.selectPhotoView];
+    [self setupUI];
+}
 
+- (void)setupUI{
+    self.tableView.tableHeaderView  =  self.selectPhotoView;
+    __weak typeof(self) weakSelf = self;
+    [self.selectPhotoView setUpdateHeightBlock:^(CGRect viewRect) {
+        //自适应更新回调 一般来说在这里更新视图高度
+        [weakSelf.tableView beginUpdates];
+        [weakSelf.tableView setTableHeaderView:weakSelf.selectPhotoView];
+        [weakSelf.tableView endUpdates];
+    }];
 }
 
 - (void)selectPhoto{
@@ -64,9 +75,6 @@
         }
     }];
 }
-
-
-
 
 
 ///MARK:- 超出限制提示信息
@@ -127,10 +135,34 @@
     }
 }
 
+///MARK:- tableView DataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 50;
+}
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
+    if (indexPath.row % 2 == 0) {
+        cell.contentView.backgroundColor = [UIColor systemOrangeColor];
+     } else {
+        cell.contentView.backgroundColor = [UIColor systemPinkColor];
+    }
+    return cell;
+}
+
+///MARK:-  tableView Delegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 60;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+}
+
+///MARK:- Lazy load
 - (WGBSelectPhotoView *)selectPhotoView {
     if (!_selectPhotoView) {
-        _selectPhotoView = [[WGBSelectPhotoView alloc] initWithFrame:CGRectMake(0, 88, self.view.bounds.size.width, 100)];
+        _selectPhotoView = [[WGBSelectPhotoView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 100)];
         _selectPhotoView.maxCount = kMaxSelectImagesCount;
         _selectPhotoView.rowCount = 3;
         _selectPhotoView.backgroundColor = [UIColor cyanColor];
@@ -146,6 +178,27 @@
         _selectImageArray = [[NSMutableArray alloc] init];
     }
     return _selectImageArray;
+}
+
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 88, self.view.bounds.size.width , self.view.bounds.size.height - 88) style:UITableViewStylePlain];
+        
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        if (@available(iOS 11.0, *)) {
+            _tableView.estimatedRowHeight = 0;
+            _tableView.estimatedSectionFooterHeight = 0;
+            _tableView.estimatedSectionHeaderHeight = 0;
+            _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
+        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
+        [self.view addSubview: _tableView];
+        
+    }
+    return _tableView;
 }
 
 

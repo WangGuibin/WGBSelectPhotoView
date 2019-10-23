@@ -56,7 +56,12 @@
     }
     for (WGBSelectPhotoDataItem *item in items) {
         UIImage *img = item.coverImage;
-        [self addMediaCoverImageViewWithImage:img isVideoCoverImage: item.assetObj.mediaType == PHAssetMediaTypeVideo];
+        PHAsset *asset = item.assetObj;
+        BOOL isVideo = NO;
+        if (asset) {
+            isVideo = item.assetObj.mediaType == PHAssetMediaTypeVideo;
+        }
+        [self addMediaCoverImageViewWithImage:img isVideoCoverImage: isVideo];
     }
 }
 
@@ -77,7 +82,6 @@
     [self addAddPictureButton];
 }
 
-
 //添加 添加图片的按钮
 - (void)addAddPictureButton {
     CGRect frame = [self pictureButtonFrameWithIndex:self.pictureBtnArr.count];
@@ -86,8 +90,7 @@
     CGRect viewRect = self.frame;
     viewRect.size.height = CGRectGetMaxY(addBtn.frame) + self.margin;
     self.frame = viewRect;
-    !self.updateHeightBlock? : self.updateHeightBlock(viewRect.size.height);
-
+    !self.updateHeightBlock? : self.updateHeightBlock(viewRect);
 
     __weak typeof(self) weakSelf = self;
     __weak typeof(addBtn) weakBtn = addBtn;
@@ -131,7 +134,7 @@
     CGRect viewRect = self.frame;
     viewRect.size.height = CGRectGetMaxY(frame) + self.margin;
     self.frame = viewRect;
-    !self.updateHeightBlock? : self.updateHeightBlock(viewRect.size.height);
+    !self.updateHeightBlock? : self.updateHeightBlock(viewRect);
 }
 
 - (NSUInteger)picturesCount {
@@ -272,21 +275,6 @@
     self.endIndex = self.selectedIndex;
 }
 
-
-///MARK: - 将PHAsset对象转为UIImage对象 这个确实能转换 但是太慢了 不喜欢这种转好的东西 转来转去的 还要看转菊花~
-//- (UIImage *)convertImageWithPHAsset:(PHAsset *)assets{
-//    __block UIImage *image = [UIImage new];
-//    PHImageManager *imageManager = [PHImageManager defaultManager];
-//    PHImageRequestOptions *opt = [[PHImageRequestOptions alloc] init];
-//    opt.synchronous = YES;
-//    opt.resizeMode = PHImageRequestOptionsResizeModeNone;
-//    opt.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-//    [imageManager requestImageForAsset:assets targetSize:PHImageManagerMaximumSize contentMode:(PHImageContentModeAspectFill) options:opt resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-//        image = result;
-//    }];
-//    return image;
-//}
-
 #pragma mark - getters & setters
 - (NSMutableArray *)pictureBtnArr {
     if (!_pictureBtnArr) {
@@ -294,10 +282,6 @@
     }
     return _pictureBtnArr;
 }
-
-
-
-
 
 @end
 
@@ -307,7 +291,7 @@
 ///MARK:- 获取相册选择的数据源
 + (NSArray<WGBSelectPhotoDataItem *> *)createDataItemsWithPHAssets:(NSArray<PHAsset*> *)mediaAssets
                                                            photoes:(NSArray<UIImage*>*)photoes{
-    if (!mediaAssets.count) {
+    if (!photoes.count) {
         return nil;
     }
     NSMutableArray *dataSource = [NSMutableArray array];

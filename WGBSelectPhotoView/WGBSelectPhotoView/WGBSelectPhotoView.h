@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///MARK:- 添加数据源数组
 - (void)addPhotoesWithDataItems:(NSArray<WGBSelectPhotoDataItem *> *)items;
 ///MARK:- 更新视图的高度
-@property (nonatomic,copy) void(^updateHeightBlock) (CGFloat viewHeight);
+@property (nonatomic,copy) void(^updateHeightBlock) (CGRect lastViewRect);
 
 
 @end
