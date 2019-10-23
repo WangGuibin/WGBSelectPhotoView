@@ -86,7 +86,8 @@
         [self selectPhoto];
     }else {
         NSMutableArray *localImageDataArr = [NSMutableArray array];
-        for (PHAsset *imageAsset in self.selectImageArray) {
+        NSArray *assets = [self.selectImageArray copy];
+        for (PHAsset *imageAsset in assets) {
             if (imageAsset.mediaType == PHAssetMediaTypeVideo) {
                 YBIBVideoData *videoData = [YBIBVideoData new];
                 videoData.videoPHAsset = imageAsset;
@@ -109,6 +110,20 @@
 - (void)wgb_photoViewDidDeletedPhotoAtIndex:(NSInteger)index{
     if (self.selectImageArray.count) {
         [self.selectImageArray removeObjectAtIndex: index];
+    }
+}
+
+//移动图片事件
+- (void)wgb_photoViewDidMovedPhotoWithStartIndex:(NSInteger)startIndex
+                                        endIndex:(NSInteger)endIndex{
+    NSLog(@"startIndex: %ld --- endIndex: %ld",startIndex,endIndex);
+    if (startIndex != endIndex) {
+        //不要直接操作数据源本身， 不然数据会错乱 
+        NSMutableArray *tempArr = self.selectImageArray.mutableCopy;
+        id obj = tempArr[startIndex];
+        [tempArr removeObject:obj];
+        [tempArr insertObject:obj atIndex:endIndex];
+        self.selectImageArray = tempArr ;
     }
 }
 

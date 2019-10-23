@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)wgb_photoViewDidClickedPhotoAtIndex:(NSInteger)index;
 //删除图片事件回调
 - (void)wgb_photoViewDidDeletedPhotoAtIndex:(NSInteger)index;
+//移动图片事件 
+- (void)wgb_photoViewDidMovedPhotoWithStartIndex:(NSInteger)startIndex
+                                       endIndex:(NSInteger)endIndex;
 
 @end
 

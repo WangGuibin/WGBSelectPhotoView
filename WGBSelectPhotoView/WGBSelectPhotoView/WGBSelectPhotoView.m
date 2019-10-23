@@ -15,6 +15,8 @@
 @property (nonatomic, assign) CGPoint centerPoint;
 @property (nonatomic, assign) CGPoint originPoint;
 @property (nonatomic, assign) CGPoint startPoint;
+@property (nonatomic,assign) NSInteger startIndex;//移动起始下标
+@property (nonatomic,assign) NSInteger endIndex;//移动结束下标
 @property (nonatomic, assign) NSInteger selectedIndex;
 
 
@@ -215,6 +217,7 @@
     self.originPoint = self.centerPoint;
     self.startPoint = [sender locationInView:self];
     self.selectedIndex = [self.pictureBtnArr indexOfObject:btn];
+    self.startIndex = self.selectedIndex;
     
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:0.25 animations:^{
@@ -250,6 +253,7 @@
     }
     if (index != self.selectedIndex) {
         self.selectedIndex = index;
+        self.endIndex = index;
         [self.pictureBtnArr removeObject:btn];
         [self.pictureBtnArr insertObject:btn atIndex:index];
         [self layoutButtonsExceptAtIndex:index];
@@ -260,6 +264,12 @@
     [self layoutViewAtIndex:self.selectedIndex];
     WGBSelectPhotoButton *btn = self.pictureBtnArr[self.selectedIndex];
     btn.alpha = 1;
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(wgb_photoViewDidMovedPhotoWithStartIndex:endIndex:)]) {
+        [self.delegate wgb_photoViewDidMovedPhotoWithStartIndex:self.startIndex endIndex:self.endIndex];
+    }
+    self.startIndex = self.selectedIndex;
+    self.endIndex = self.selectedIndex;
 }
 
 
