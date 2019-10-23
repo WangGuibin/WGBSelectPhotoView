@@ -53,14 +53,21 @@
             NSIndexSet *indexes = [NSIndexSet indexSetWithIndexesInRange:
                                    NSMakeRange(0,detaCount)];
             NSArray *tempAssets = [assets objectsAtIndexes:indexes];
+            NSArray *tempPhotoes = [photos objectsAtIndexes:indexes];
             [self.selectImageArray addObjectsFromArray:tempAssets];
-            [self.selectPhotoView addPhotoesWithAssets:tempAssets];
+            NSArray<WGBSelectPhotoDataItem *> *items = [WGBSelectPhotoDataItem createDataItemsWithPHAssets:tempAssets photoes:tempPhotoes];
+            [self.selectPhotoView addPhotoesWithDataItems:items];
         }else{
             [self.selectImageArray addObjectsFromArray:assets];
-            [self.selectPhotoView addPhotoesWithAssets:assets];
+            NSArray<WGBSelectPhotoDataItem *> *items = [WGBSelectPhotoDataItem createDataItemsWithPHAssets:assets photoes:photos];
+            [self.selectPhotoView addPhotoesWithDataItems:items];
         }
     }];
 }
+
+
+
+
 
 ///MARK:- 超出限制提示信息
 - (void)outOfLimitAlertTips{

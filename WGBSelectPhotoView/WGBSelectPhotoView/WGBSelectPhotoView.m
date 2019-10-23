@@ -47,14 +47,14 @@
     [self addAddPictureButton];
 }
 
-///MARK:- 添加`PHAsset`资源数组
-- (void)addPhotoesWithAssets:(NSArray<PHAsset *> *)mediaAssets{
+///MARK:- 添加数据源数组
+- (void)addPhotoesWithDataItems:(NSArray<WGBSelectPhotoDataItem *> *)items{
     if (self.pictureBtnArr.count == self.maxCount && ![self.pictureBtnArr.lastObject isAddButton]){
         return;
     }
-    for (PHAsset *asset in mediaAssets) {
-        UIImage *img = [self convertImageWithPHAsset: asset];
-        [self addMediaCoverImageViewWithImage:img isVideoCoverImage: asset.mediaType == PHAssetMediaTypeVideo];
+    for (WGBSelectPhotoDataItem *item in items) {
+        UIImage *img = item.coverImage;
+        [self addMediaCoverImageViewWithImage:img isVideoCoverImage: item.assetObj.mediaType == PHAssetMediaTypeVideo];
     }
 }
 
@@ -82,7 +82,7 @@
     WGBSelectPhotoButton *addBtn = [[WGBSelectPhotoButton alloc] initWithFrame:frame];
 
     CGRect viewRect = self.frame;
-    viewRect.size.height = CGRectGetMaxY(addBtn.frame) + 10;
+    viewRect.size.height = CGRectGetMaxY(addBtn.frame) + self.margin;
     self.frame = viewRect;
     !self.updateHeightBlock? : self.updateHeightBlock(viewRect.size.height);
 
@@ -127,7 +127,7 @@
     //更新视图本身的frame 自适应高度
     CGRect frame = [self pictureButtonFrameWithIndex:self.pictureBtnArr.count - 1];
     CGRect viewRect = self.frame;
-    viewRect.size.height = CGRectGetMaxY(frame) + 10;
+    viewRect.size.height = CGRectGetMaxY(frame) + self.margin;
     self.frame = viewRect;
     !self.updateHeightBlock? : self.updateHeightBlock(viewRect.size.height);
 }
@@ -263,19 +263,19 @@
 }
 
 
-///MARK: - 将PHAsset对象转为UIImage对象
-- (UIImage *)convertImageWithPHAsset:(PHAsset *)assets{
-    __block UIImage *image = [UIImage new];
-    PHImageManager *imageManager = [PHImageManager defaultManager];
-    PHImageRequestOptions *opt = [[PHImageRequestOptions alloc] init];
-    opt.synchronous = YES;
-    opt.resizeMode = PHImageRequestOptionsResizeModeNone;
-    opt.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-    [imageManager requestImageForAsset:assets targetSize:PHImageManagerMaximumSize contentMode:(PHImageContentModeAspectFill) options:opt resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-        image = result;
-    }];
-    return image;
-}
+///MARK: - 将PHAsset对象转为UIImage对象 这个确实能转换 但是太慢了 不喜欢这种转好的东西 转来转去的 还要看转菊花~
+//- (UIImage *)convertImageWithPHAsset:(PHAsset *)assets{
+//    __block UIImage *image = [UIImage new];
+//    PHImageManager *imageManager = [PHImageManager defaultManager];
+//    PHImageRequestOptions *opt = [[PHImageRequestOptions alloc] init];
+//    opt.synchronous = YES;
+//    opt.resizeMode = PHImageRequestOptionsResizeModeNone;
+//    opt.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+//    [imageManager requestImageForAsset:assets targetSize:PHImageManagerMaximumSize contentMode:(PHImageContentModeAspectFill) options:opt resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+//        image = result;
+//    }];
+//    return image;
+//}
 
 #pragma mark - getters & setters
 - (NSMutableArray *)pictureBtnArr {
@@ -290,3 +290,27 @@
 
 
 @end
+
+
+@implementation WGBSelectPhotoDataItem
+
+///MARK:- 获取相册选择的数据源
++ (NSArray<WGBSelectPhotoDataItem *> *)createDataItemsWithPHAssets:(NSArray<PHAsset*> *)mediaAssets
+                                                           photoes:(NSArray<UIImage*>*)photoes{
+    if (!mediaAssets.count) {
+        return nil;
+    }
+    NSMutableArray *dataSource = [NSMutableArray array];
+    [photoes enumerateObjectsUsingBlock:^(UIImage * _Nonnull img, NSUInteger index, BOOL * _Nonnull stop) {
+        WGBSelectPhotoDataItem *item = [WGBSelectPhotoDataItem new];
+        item.assetObj = mediaAssets[index];
+        item.coverImage = img;
+        [dataSource addObject: item];
+    }];
+    return dataSource;
+}
+
+
+
+@end
+

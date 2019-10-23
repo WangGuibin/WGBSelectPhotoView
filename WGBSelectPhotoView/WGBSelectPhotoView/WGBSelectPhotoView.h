@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
-
+@class WGBSelectPhotoDataItem;
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol WGBSelectPhotoViewDelegate <NSObject>
@@ -37,11 +37,23 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSUInteger)picturesCount;
 - (NSUInteger)pictureButtonsCount;
 
-///MARK:- 添加`PHAsset`资源数组
-- (void)addPhotoesWithAssets:(NSArray<PHAsset *> *)mediaAssets;
+///MARK:- 添加数据源数组
+- (void)addPhotoesWithDataItems:(NSArray<WGBSelectPhotoDataItem *> *)items;
 ///MARK:- 更新视图的高度
 @property (nonatomic,copy) void(^updateHeightBlock) (CGFloat viewHeight);
 
+
+@end
+
+
+@interface WGBSelectPhotoDataItem : NSObject
+
+@property (nonatomic,strong) PHAsset *assetObj;
+@property (nonatomic,strong) UIImage *coverImage;
+
+///MARK:- 获取相册选择的数据源
++ (NSArray<WGBSelectPhotoDataItem *> *)createDataItemsWithPHAssets:(NSArray<PHAsset*> *)mediaAssets
+                                                           photoes:(NSArray<UIImage*>*)photoes;
 
 @end
 
