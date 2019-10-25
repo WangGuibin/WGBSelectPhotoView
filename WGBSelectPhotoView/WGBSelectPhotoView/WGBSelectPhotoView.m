@@ -94,8 +94,8 @@
     __weak typeof(self) weakSelf = self;
     __weak typeof(addBtn) weakBtn = addBtn;
     addBtn.didClickButtonBlock = ^{
-        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(wgb_photoViewDidClickedPhotoAtIndex:)]) {
-            [weakSelf.delegate wgb_photoViewDidClickedPhotoAtIndex:[weakSelf.pictureBtnArr indexOfObject:weakBtn]];
+        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(wgb_photoViewDidClickedPhotoAtIndex:photoView:)]) {
+            [weakSelf.delegate wgb_photoViewDidClickedPhotoAtIndex:[weakSelf.pictureBtnArr indexOfObject:weakBtn] photoView:self];
         }
     };
     
@@ -124,8 +124,8 @@
         [self addAddPictureButton];
     }
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(wgb_photoViewDidDeletedPhotoAtIndex:)]) {
-        [self.delegate wgb_photoViewDidDeletedPhotoAtIndex: index];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(wgb_photoViewDidDeletedPhotoAtIndex:photoView:)]) {
+        [self.delegate wgb_photoViewDidDeletedPhotoAtIndex: index photoView:self];
     }
     
     //更新视图本身的frame 自适应高度
@@ -267,8 +267,8 @@
     WGBSelectPhotoButton *btn = self.pictureBtnArr[self.selectedIndex];
     btn.alpha = 1;
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(wgb_photoViewDidMovedPhotoWithStartIndex:endIndex:)]) {
-        [self.delegate wgb_photoViewDidMovedPhotoWithStartIndex:self.startIndex endIndex:self.endIndex];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(wgb_photoViewDidMovedPhotoWithStartIndex:endIndex:photoView:)]) {
+        [self.delegate wgb_photoViewDidMovedPhotoWithStartIndex:self.startIndex endIndex:self.endIndex photoView:self];
     }
     self.startIndex = self.selectedIndex;
     self.endIndex = self.selectedIndex;

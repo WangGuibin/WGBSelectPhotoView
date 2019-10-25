@@ -3,12 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		0450C8F52354CA110069AC4D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450C8F42354CA110069AC4D /* AppDelegate.m */; };
-		0450C8F82354CA110069AC4D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450C8F72354CA110069AC4D /* ViewController.m */; };
+		0450C8F82354CA110069AC4D /* WGBSelectImageAndVideoDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450C8F72354CA110069AC4D /* WGBSelectImageAndVideoDemoViewController.m */; };
 		0450C8FB2354CA110069AC4D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0450C8F92354CA110069AC4D /* Main.storyboard */; };
 		0450C8FD2354CA120069AC4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0450C8FC2354CA120069AC4D /* Assets.xcassets */; };
 		0450C9002354CA120069AC4D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0450C8FE2354CA120069AC4D /* LaunchScreen.storyboard */; };
@@ -16,6 +16,10 @@
 		0450C90F2354CAAD0069AC4D /* WGBSelectPhotoView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0450C90C2354CAAD0069AC4D /* WGBSelectPhotoView.bundle */; };
 		0450C9102354CAAD0069AC4D /* WGBSelectPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450C90D2354CAAD0069AC4D /* WGBSelectPhotoView.m */; };
 		0450C9112354CAAD0069AC4D /* WGBSelectPhotoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0450C90E2354CAAD0069AC4D /* WGBSelectPhotoButton.m */; };
+		04A78F86236293E000915493 /* WGBSelectPhotoViewDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A78F85236293E000915493 /* WGBSelectPhotoViewDemoViewController.m */; };
+		04A78F892362980F00915493 /* WGBSelectImageOrVideoDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A78F882362980F00915493 /* WGBSelectImageOrVideoDemoViewController.m */; };
+		04A78F8C2362998400915493 /* UIView+YGCExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A78F8B2362998400915493 /* UIView+YGCExtension.m */; };
+		04A78F8F23629A8100915493 /* UILabel+YGCExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A78F8E23629A8100915493 /* UILabel+YGCExtension.m */; };
 		15CF79AA237015855987BCCC /* Pods_WGBSelectPhotoView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 369072ADF473E4CC208F638F /* Pods_WGBSelectPhotoView.framework */; };
 /* End PBXBuildFile section */
 
@@ -23,8 +27,8 @@
 		0450C8F02354CA110069AC4D /* WGBSelectPhotoView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WGBSelectPhotoView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0450C8F32354CA110069AC4D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0450C8F42354CA110069AC4D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		0450C8F62354CA110069AC4D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		0450C8F72354CA110069AC4D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		0450C8F62354CA110069AC4D /* WGBSelectImageAndVideoDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WGBSelectImageAndVideoDemoViewController.h; sourceTree = "<group>"; };
+		0450C8F72354CA110069AC4D /* WGBSelectImageAndVideoDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WGBSelectImageAndVideoDemoViewController.m; sourceTree = "<group>"; };
 		0450C8FA2354CA110069AC4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0450C8FC2354CA120069AC4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0450C8FF2354CA120069AC4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -35,6 +39,14 @@
 		0450C90C2354CAAD0069AC4D /* WGBSelectPhotoView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WGBSelectPhotoView.bundle; sourceTree = "<group>"; };
 		0450C90D2354CAAD0069AC4D /* WGBSelectPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGBSelectPhotoView.m; sourceTree = "<group>"; };
 		0450C90E2354CAAD0069AC4D /* WGBSelectPhotoButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGBSelectPhotoButton.m; sourceTree = "<group>"; };
+		04A78F84236293E000915493 /* WGBSelectPhotoViewDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WGBSelectPhotoViewDemoViewController.h; sourceTree = "<group>"; };
+		04A78F85236293E000915493 /* WGBSelectPhotoViewDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WGBSelectPhotoViewDemoViewController.m; sourceTree = "<group>"; };
+		04A78F872362980F00915493 /* WGBSelectImageOrVideoDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WGBSelectImageOrVideoDemoViewController.h; sourceTree = "<group>"; };
+		04A78F882362980F00915493 /* WGBSelectImageOrVideoDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WGBSelectImageOrVideoDemoViewController.m; sourceTree = "<group>"; };
+		04A78F8A2362998400915493 /* UIView+YGCExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+YGCExtension.h"; sourceTree = "<group>"; };
+		04A78F8B2362998400915493 /* UIView+YGCExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+YGCExtension.m"; sourceTree = "<group>"; };
+		04A78F8D23629A8100915493 /* UILabel+YGCExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+YGCExtension.h"; sourceTree = "<group>"; };
+		04A78F8E23629A8100915493 /* UILabel+YGCExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+YGCExtension.m"; sourceTree = "<group>"; };
 		369072ADF473E4CC208F638F /* Pods_WGBSelectPhotoView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WGBSelectPhotoView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		756F361E4351A902EDA2C35E /* Pods-WGBSelectPhotoView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WGBSelectPhotoView.debug.xcconfig"; path = "Target Support Files/Pods-WGBSelectPhotoView/Pods-WGBSelectPhotoView.debug.xcconfig"; sourceTree = "<group>"; };
 		97DB0223F6D05777812DC86E /* Pods-WGBSelectPhotoView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WGBSelectPhotoView.release.xcconfig"; path = "Target Support Files/Pods-WGBSelectPhotoView/Pods-WGBSelectPhotoView.release.xcconfig"; sourceTree = "<group>"; };
@@ -76,8 +88,16 @@
 				0450C9092354CAAD0069AC4D /* WGBSelectPhotoView */,
 				0450C8F32354CA110069AC4D /* AppDelegate.h */,
 				0450C8F42354CA110069AC4D /* AppDelegate.m */,
-				0450C8F62354CA110069AC4D /* ViewController.h */,
-				0450C8F72354CA110069AC4D /* ViewController.m */,
+				04A78F8A2362998400915493 /* UIView+YGCExtension.h */,
+				04A78F8B2362998400915493 /* UIView+YGCExtension.m */,
+				04A78F8D23629A8100915493 /* UILabel+YGCExtension.h */,
+				04A78F8E23629A8100915493 /* UILabel+YGCExtension.m */,
+				04A78F84236293E000915493 /* WGBSelectPhotoViewDemoViewController.h */,
+				04A78F85236293E000915493 /* WGBSelectPhotoViewDemoViewController.m */,
+				0450C8F62354CA110069AC4D /* WGBSelectImageAndVideoDemoViewController.h */,
+				0450C8F72354CA110069AC4D /* WGBSelectImageAndVideoDemoViewController.m */,
+				04A78F872362980F00915493 /* WGBSelectImageOrVideoDemoViewController.h */,
+				04A78F882362980F00915493 /* WGBSelectImageOrVideoDemoViewController.m */,
 				0450C8F92354CA110069AC4D /* Main.storyboard */,
 				0450C8FC2354CA120069AC4D /* Assets.xcassets */,
 				0450C8FE2354CA120069AC4D /* LaunchScreen.storyboard */,
@@ -113,7 +133,6 @@
 				756F361E4351A902EDA2C35E /* Pods-WGBSelectPhotoView.debug.xcconfig */,
 				97DB0223F6D05777812DC86E /* Pods-WGBSelectPhotoView.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -233,9 +252,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0450C9102354CAAD0069AC4D /* WGBSelectPhotoView.m in Sources */,
-				0450C8F82354CA110069AC4D /* ViewController.m in Sources */,
+				0450C8F82354CA110069AC4D /* WGBSelectImageAndVideoDemoViewController.m in Sources */,
+				04A78F892362980F00915493 /* WGBSelectImageOrVideoDemoViewController.m in Sources */,
+				04A78F8F23629A8100915493 /* UILabel+YGCExtension.m in Sources */,
 				0450C9112354CAAD0069AC4D /* WGBSelectPhotoButton.m in Sources */,
+				04A78F8C2362998400915493 /* UIView+YGCExtension.m in Sources */,
 				0450C9032354CA120069AC4D /* main.m in Sources */,
+				04A78F86236293E000915493 /* WGBSelectPhotoViewDemoViewController.m in Sources */,
 				0450C8F52354CA110069AC4D /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

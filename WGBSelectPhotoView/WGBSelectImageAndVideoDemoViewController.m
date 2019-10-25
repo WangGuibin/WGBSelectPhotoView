@@ -1,20 +1,21 @@
 //
-//  ViewController.m
+//  WGBSelectImageAndVideoDemoViewController.m
 //  WGBSelectPhotoView
 //
 //  Created by mac on 2019/10/14.
 //  Copyright © 2019 mac. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "WGBSelectImageAndVideoDemoViewController.h"
 #import "WGBSelectPhotoView.h"
 #import <TZImagePickerController/TZImagePickerController.h>
 #import <YBImageBrowser.h>
 #import <YBIBVideoData.h>
+#import <Masonry.h>
 
 #define kMaxSelectImagesCount 9
 
-@interface ViewController ()<UITableViewDelegate, UITableViewDataSource, WGBSelectPhotoViewDelegate>
+@interface WGBSelectImageAndVideoDemoViewController ()<UITableViewDelegate, UITableViewDataSource, WGBSelectPhotoViewDelegate>
 
 @property (nonatomic, strong) WGBSelectPhotoView *selectPhotoView;
 @property (nonatomic, strong) NSMutableArray *selectImageArray;
@@ -22,12 +23,12 @@
 
 @end
 
-@implementation ViewController
+@implementation WGBSelectImageAndVideoDemoViewController
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"照片选择";
+    self.navigationItem.title = @"照片与视频同时选择";
     self.view.backgroundColor = [UIColor whiteColor];
     [self setupUI];
 }
@@ -65,13 +66,13 @@
                                    NSMakeRange(0,detaCount)];
             NSArray *tempAssets = [assets objectsAtIndexes:indexes];
             NSArray *tempPhotoes = [photos objectsAtIndexes:indexes];
-            [self.selectImageArray addObjectsFromArray:tempAssets];
             NSArray<WGBSelectPhotoDataItem *> *items = [WGBSelectPhotoDataItem createDataItemsWithPHAssets:tempAssets photoes:tempPhotoes];
             [self.selectPhotoView addPhotoesWithDataItems:items];
+            [self.selectImageArray addObjectsFromArray:tempAssets];
         }else{
-            [self.selectImageArray addObjectsFromArray:assets];
             NSArray<WGBSelectPhotoDataItem *> *items = [WGBSelectPhotoDataItem createDataItemsWithPHAssets:assets photoes:photos];
             [self.selectPhotoView addPhotoesWithDataItems:items];
+            [self.selectImageArray addObjectsFromArray:assets];
         }
     }];
 }
@@ -182,7 +183,7 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 88, self.view.bounds.size.width , self.view.bounds.size.height - 88) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -196,7 +197,11 @@
         }
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
         [self.view addSubview: _tableView];
-        
+        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop);
+            make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom);
+            make.left.right.equalTo(self.view);
+        }];
     }
     return _tableView;
 }

@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  WGBSelectImageAndVideoDemoViewController.h
 //  WGBSelectPhotoView
 //
 //  Created by mac on 2019/10/14.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface WGBSelectImageAndVideoDemoViewController : UIViewController
 
 
 @end

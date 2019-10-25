@@ -8,27 +8,30 @@
 
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
-@class WGBSelectPhotoDataItem;
+@class WGBSelectPhotoDataItem,WGBSelectPhotoView;
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol WGBSelectPhotoViewDelegate <NSObject>
 
 @optional
 //点击图片事件回调
-- (void)wgb_photoViewDidClickedPhotoAtIndex:(NSInteger)index;
+- (void)wgb_photoViewDidClickedPhotoAtIndex:(NSInteger)index
+                                  photoView:(WGBSelectPhotoView *)photoView;
 //删除图片事件回调
-- (void)wgb_photoViewDidDeletedPhotoAtIndex:(NSInteger)index;
+- (void)wgb_photoViewDidDeletedPhotoAtIndex:(NSInteger)index
+                                  photoView:(WGBSelectPhotoView *)photoView;
 //移动图片事件 
 - (void)wgb_photoViewDidMovedPhotoWithStartIndex:(NSInteger)startIndex
-                                       endIndex:(NSInteger)endIndex;
+                                       endIndex:(NSInteger)endIndex
+                                       photoView:(WGBSelectPhotoView *)photoView; 
 
 @end
 
 
 @interface WGBSelectPhotoView : UIView
 
-@property (nonatomic, assign) NSInteger maxCount;//最多显示图片数量 默认9张
-@property (nonatomic, assign) NSInteger rowCount;//每行显示图片数量 默认4张
+@property (nonatomic, assign) NSInteger maxCount;//最多显示图片数量 默认9张 控制数量
+@property (nonatomic, assign) NSInteger rowCount;//每行显示图片数量 默认4张 控制item的大小
 ///MARK:- 显式调用 显示加号按钮  调用时机是初始化完之后 或者 重新设置`maxCount`和`rowCount`之后
 - (void)showAddButtonDisplay;
 
@@ -39,6 +42,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSUInteger)picturesCount;
 - (NSUInteger)pictureButtonsCount;
+
+//图片frame 计算获取
+- (CGRect)pictureButtonFrameWithIndex:(NSInteger)index;
+
 
 ///MARK:- 添加数据源数组
 - (void)addPhotoesWithDataItems:(NSArray<WGBSelectPhotoDataItem *> *)items;

@@ -6,6 +6,7 @@ target 'WGBSelectPhotoView' do
   use_frameworks!
 
   # Pods for WGBSelectPhotoView
+  pod 'Masonry'
   pod 'TZImagePickerController'
   pod 'YBImageBrowser'
   pod 'YBImageBrowser/Video'
