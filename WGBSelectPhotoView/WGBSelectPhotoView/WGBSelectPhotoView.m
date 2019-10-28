@@ -25,13 +25,27 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.maxCount = 9;
-        self.rowCount = 4;
-        
-        self.margin   = 15.0;
-        self.spacing  = 10.0;
+        [self initDefaultConfig];
     }
     return self;
+}
+
+
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self initDefaultConfig];
+    }
+    return self;
+}
+
+- (void)initDefaultConfig{
+    self.maxCount = 9;
+    self.rowCount = 4;
+    self.margin   = 15.0;
+    self.spacing  = 10.0;
 }
 
 - (void)setMaxCount:(NSInteger)maxCount{
@@ -40,6 +54,14 @@
 
 - (void)setRowCount:(NSInteger)rowCount{
     _rowCount = rowCount;
+}
+
+- (void)setMargin:(CGFloat)margin{
+    _margin = margin;
+}
+
+- (void)setSpacing:(CGFloat)spacing{
+    _spacing = spacing;
 }
 
 ///MARK:- 显式调用 显示加号按钮  调用时机是初始化完之后 或者 初始化完重新设置`maxCount`和`rowCount`之后 选择第一张图片之前

@@ -90,7 +90,8 @@
 }
 
 #pragma mark - <WGBSelectPhotoViewDelegate>
-- (void)wgb_photoViewDidClickedPhotoAtIndex:(NSInteger)index{
+- (void)wgb_photoViewDidClickedPhotoAtIndex:(NSInteger)index
+                                  photoView:(WGBSelectPhotoView *)photoView{
     if (index == [self.selectPhotoView picturesCount]) {
         [self selectPhoto];
     }else {
@@ -116,7 +117,8 @@
 }
 
 //删除图片事件回调
-- (void)wgb_photoViewDidDeletedPhotoAtIndex:(NSInteger)index{
+- (void)wgb_photoViewDidDeletedPhotoAtIndex:(NSInteger)index
+                                  photoView:(WGBSelectPhotoView *)photoView{
     if (self.selectImageArray.count) {
         [self.selectImageArray removeObjectAtIndex: index];
     }
@@ -124,7 +126,8 @@
 
 //移动图片事件
 - (void)wgb_photoViewDidMovedPhotoWithStartIndex:(NSInteger)startIndex
-                                        endIndex:(NSInteger)endIndex{
+                                        endIndex:(NSInteger)endIndex
+                                       photoView:(WGBSelectPhotoView *)photoView{
     NSLog(@"startIndex: %ld --- endIndex: %ld",startIndex,endIndex);
     if (startIndex != endIndex) {
         //不要直接操作数据源本身， 不然数据会错乱 

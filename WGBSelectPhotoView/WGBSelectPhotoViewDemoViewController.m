@@ -30,7 +30,7 @@
     ];
     self.titles = @[
            @"同时选择照片和视频",
-           @"存在多个选择控件的情况"
+           @"存在多个选择控件的情况",
         ];
     
     [self.tableView reloadData];
