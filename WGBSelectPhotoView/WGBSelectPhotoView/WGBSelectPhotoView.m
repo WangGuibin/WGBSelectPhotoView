@@ -30,17 +30,6 @@
     return self;
 }
 
-
-
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [super initWithCoder:coder];
-    if (self) {
-        [self initDefaultConfig];
-    }
-    return self;
-}
-
 - (void)initDefaultConfig{
     self.maxCount = 9;
     self.rowCount = 4;
