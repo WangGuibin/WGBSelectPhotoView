@@ -18,14 +18,8 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
- ✅ 支持多选  
- ✅ 支持删除
- ✅ 支持拖动排序
- ✅ 支持浏览大图 
- ✅ 支持自适应高度
- ✅ 支持选择视频
-
-                       DESC
+   选择图片或者视频工具类，支持自定义icon，自适应高度，参数灵活设置可高度定制
+  DESC
 
   s.homepage         = 'https://github.com/WangGuibin/WGBSelectPhotoView'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
