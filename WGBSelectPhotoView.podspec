@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'WGBSelectPhotoView'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = '选择图片或者视频工具类，支持自定义icon，自适应高度，参数灵活设置可高度定制.'
 
 # This description is used to generate tags and improve search results.
