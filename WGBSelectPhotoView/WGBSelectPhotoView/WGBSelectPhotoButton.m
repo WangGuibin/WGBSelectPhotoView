@@ -7,6 +7,7 @@
 //
 
 #import "WGBSelectPhotoButton.h"
+#import "WGBSelectPhotoViewConfig.h"
 
 @interface WGBSelectPhotoButton()
 
@@ -32,8 +33,7 @@
         self.contentVerticalAlignment   = UIControlContentVerticalAlignmentFill;
         self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
 
-        NSBundle *bundle = [self getWGBSelectPhotoViewBundle];
-        UIImage *addImg = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"wgb_add" ofType:@"png"]];
+        UIImage *addImg = [WGBSelectPhotoViewConfig sharedManager].addButtonImage();
         [self setBackgroundImage: addImg forState:UIControlStateNormal];
         
         [self addTarget:self
@@ -69,21 +69,14 @@
     self.videoImageView.hidden = !isVideoButton;
 }
 
-///MARK:- 获取自定义Bundle
-- (NSBundle *)getWGBSelectPhotoViewBundle{
-    NSString* path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"WGBSelectPhotoView.bundle"];
-    NSBundle *bundle = [NSBundle bundleWithPath:path];
-    return bundle;
-}
-
 ///MARK:- Lazy load
 - (UIButton *)deleteBtn {
     if (!_deleteBtn) {
         _deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _deleteBtn.frame = CGRectMake(0, 0, 25, 25);
-        NSBundle *bundle = [self getWGBSelectPhotoViewBundle];
-        UIImage *deleteImg = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"wgb_delete" ofType:@"png"]];
+
+        UIImage *deleteImg = [WGBSelectPhotoViewConfig sharedManager].deleteButtonImage();
         [_deleteBtn setBackgroundImage: deleteImg forState:UIControlStateNormal];
         [_deleteBtn addTarget:self
                        action:@selector(didCLickedDeleteBtn)
@@ -95,8 +88,7 @@
 - (UIImageView *)videoImageView {
     if (!_videoImageView) {
         _videoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 24 , 24)];
-        NSBundle *bundle = [self getWGBSelectPhotoViewBundle];
-        UIImage *videoMarkImg = [UIImage imageWithContentsOfFile:[bundle pathForResource:@"wgb_video_icon" ofType:@"png"]];
+        UIImage *videoMarkImg = [WGBSelectPhotoViewConfig sharedManager].videoMarkImage();
         _videoImageView.image = videoMarkImg;
         _videoImageView.clipsToBounds = YES;
     }

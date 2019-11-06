@@ -7,7 +7,7 @@
 //
 
 #import "WGBSelectImageAndVideoDemoViewController.h"
-#import "WGBSelectPhotoView.h"
+#import <WGBSelectPhotoView.h>
 #import <TZImagePickerController/TZImagePickerController.h>
 #import <YBImageBrowser.h>
 #import <YBIBVideoData.h>

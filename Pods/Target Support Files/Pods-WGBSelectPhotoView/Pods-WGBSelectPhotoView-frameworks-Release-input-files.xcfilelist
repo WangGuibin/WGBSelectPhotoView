@@ -2,5 +2,6 @@ ${PODS_ROOT}/Target Support Files/Pods-WGBSelectPhotoView/Pods-WGBSelectPhotoVie
 ${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework
 ${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
 ${BUILT_PRODUCTS_DIR}/TZImagePickerController/TZImagePickerController.framework
+${BUILT_PRODUCTS_DIR}/WGBSelectPhotoView/WGBSelectPhotoView.framework
 ${BUILT_PRODUCTS_DIR}/YBImageBrowser/YBImageBrowser.framework
 ${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework

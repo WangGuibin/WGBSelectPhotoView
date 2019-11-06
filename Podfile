@@ -10,5 +10,6 @@ target 'WGBSelectPhotoView' do
   pod 'TZImagePickerController'
   pod 'YBImageBrowser'
   pod 'YBImageBrowser/Video'
-
+  pod 'WGBSelectPhotoView',:path=> './'
+  
 end
