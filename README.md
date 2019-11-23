@@ -1,5 +1,5 @@
 # WGBSelectPhotoView
-选择图片，自适应高度，九宫格样式，发布朋友圈类型的视图
+自适应高度，九宫格样式，发布朋友圈类型的视图，添加照片或视频的发布页面的添加视图 
 <p align='center'>
 <img src="https://img.shields.io/badge/build-passing-brightgreen.svg">
 <a href="https://cocoapods.org/pods/WGBSelectPhotoView"> <img src="https://img.shields.io/cocoapods/v/WGBSelectPhotoView.svg?style=flat"> </a>
