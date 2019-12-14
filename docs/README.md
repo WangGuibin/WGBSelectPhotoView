@@ -1,3 +1,5 @@
+[TOC]
+
 # WGBSelectPhotoView
 自适应高度，九宫格样式，发布朋友圈类型的视图，添加照片或视频的发布页面的添加视图 
 <p align='center'>
@@ -12,10 +14,10 @@
 
 ## Example
 
-![demo1](../Exmple1.png)
+![demo1](https://github.com/WangGuibin/WGBSelectPhotoView/blob/master/Exmple1.png)
 
 
-![demo2](../Exmple2.png)
+![demo2](https://github.com/WangGuibin/WGBSelectPhotoView/blob/master/Exmple2.png)
 
 
 ## Feature List
