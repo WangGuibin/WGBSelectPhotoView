@@ -12,10 +12,10 @@
 
 ## Example
 
-![demo1](./Exmple1.png)
+![demo1](../Exmple1.png)
 
 
-![demo2](./Exmple2.png)
+![demo2](../Exmple2.png)
 
 
 ## Feature List
