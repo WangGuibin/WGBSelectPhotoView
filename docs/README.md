@@ -4,7 +4,7 @@
 自适应高度，九宫格样式，发布朋友圈类型的视图，添加照片或视频的发布页面的添加视图 
 <p align='center'>
 <img src="https://img.shields.io/badge/build-passing-brightgreen.svg">
-<a href="https://cocoapods.org/pods/WGBSelectPhotoView"> <img src="https://img.shields.io/cocoapods/v/WGBSelectPhotoView.svg?style=flat"> </a>
+<!-- <a href="https://cocoapods.org/pods/WGBSelectPhotoView"> <img src="https://img.shields.io/cocoapods/v/WGBSelectPhotoView.svg?style=flat"> </a> -->
 <img src="https://img.shields.io/badge/platform-iOS-ff69b4.svg">
 <img src="https://img.shields.io/badge/language-Objective--C-orange.svg">
 <a href=""><img src="https://img.shields.io/badge/license-MIT-000000.svg"></a>
@@ -29,20 +29,10 @@
 - ✅ 支持自适应高度
 - ✅ 支持选择视频
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
 
 support iOS 8.0+
-
-## Installation
-
-WGBSelectPhotoView is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod 'WGBSelectPhotoView'
-```
 
 ## Author
 
