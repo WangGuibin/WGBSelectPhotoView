@@ -32,7 +32,7 @@ static NSString *_NSStringByAppendingNameScale(NSString *string, CGFloat scale) 
     return [string stringByAppendingFormat:@"@%@x", @(scale)];
 }
 
-@implementation UIImage (YBImageBrowser)
+@implementation UIImage (WGBImageBrowser)
 
 + (UIImage *)wgb_imageNamed:(NSString *)name bundle:(NSBundle *)bundle {
     if (name.length == 0) return nil;
