@@ -48,7 +48,7 @@
     TZImagePickerController *pickerVC = [[TZImagePickerController alloc] init];
     pickerVC.allowPickingVideo = YES;
     pickerVC.allowPickingMultipleVideo = YES;//多选
-    pickerVC.maxImagesCount = kMaxSelectImagesCount;
+    pickerVC.maxImagesCount = kMaxSelectImagesCount;//其实这样 kMaxSelectImagesCount - self.selectImageArray.count 就完事儿了 可我就是不想改
     [self presentViewController:pickerVC animated:YES completion:^{
         
     }];
@@ -130,12 +130,17 @@
                                        photoView:(WGBSelectPhotoView *)photoView{
     NSLog(@"startIndex: %ld --- endIndex: %ld",startIndex,endIndex);
     if (startIndex != endIndex) {
-        //不要直接操作数据源本身， 不然数据会错乱 
         NSMutableArray *tempArr = self.selectImageArray.mutableCopy;
-        id obj = tempArr[startIndex];
-        [tempArr removeObject:obj];
-        [tempArr insertObject:obj atIndex:endIndex];
-        self.selectImageArray = tempArr ;
+        id startObj = tempArr[startIndex];
+        ///MARK:- 此处是简单的插入排序算法的运用  
+        if (startIndex > endIndex) {
+            [tempArr insertObject:startObj atIndex:endIndex];
+            [tempArr removeObjectAtIndex:startIndex+1];
+        }else{
+            [tempArr insertObject:startObj atIndex:endIndex+1];
+            [tempArr removeObjectAtIndex:startIndex];
+        }
+        self.selectImageArray = tempArr;
     }
 }
 
